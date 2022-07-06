@@ -1,0 +1,27 @@
+_BASE_: "../Base-RCNN-FPN.yaml"
+MODEL:
+  META_ARCHITECTURE: "RCNN_SGRN"
+  WEIGHTS: "/home/huyen/projects/huyen/Test1/FSCE/FSCE/checkpoints/vaipe/faster_rcnn/R_50_FPN_all/test2705/model_0029999.pth"
+  # WEIGHTS: "checkpoints/R-50.pkl"
+  MASK_ON: False
+  RESNETS:
+    DEPTH: 50
+  ROI_HEADS:
+    NUM_CLASSES: 262
+    FREEZE_FEAT: True
+    # UNFREEZE_FC1: True
+    # UNFREEZE_FC2: True
+  BACKBONE:
+    FREEZE: True
+    FREEZE_P5: True
+  PROPOSAL_GENERATOR:
+    FREEZE: True
+DATASETS:
+  TRAIN: ('vaipe_train',) #('coco_2014_train',) #
+  TEST: ('vaipe_test',) #('coco_2014_val',)  #
+SOLVER:
+  IMS_PER_BATCH: 1
+  STEPS: (10000, 20000)
+  MAX_ITER: 60000
+  CHECKPOINT_PERIOD: 5000
+OUTPUT_DIR: "checkpoints/vaipe/SGRN/R_50_FPN_all/test0306"

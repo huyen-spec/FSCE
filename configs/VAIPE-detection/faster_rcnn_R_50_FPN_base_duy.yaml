@@ -1,0 +1,26 @@
+_BASE_: "../Base-RCNN-FPN.yaml"
+MODEL:
+  META_ARCHITECTURE: "GeneralizedRCNN"
+  # WEIGHTS: "/home/huyen/projects/huyen/Test1/FSCE/FSCE/checkpoints/vaipe/faster_rcnn/R_50_FPN_all/test2705/model_0029999.pth"
+  # WEIGHTS: "/home/huyen/projects/huyen/Test1/FSCE/test_SRGN/FSCE/checkpoints/vaipe/FRCNN/R_50_FPN_all/test3005/model_0059999.pth"
+  # WEIGHTS: "/home/huyen/projects/huyen/Test1/FSCE/test_SRGN/FSCE/checkpoints/vaipe/FRCNN/R_50_FPN_all/test0506/model_0059999.pth"
+  # WEIGHTS: "checkpoints/R-50.pkl"
+  WEIGHTS: "/home/huyen/projects/FSCE/checkpoints/vaipe_duy/base/model_0049999.pth"
+  MASK_ON: False
+  RESNETS:
+    DEPTH: 50
+  ROI_HEADS:
+    NUM_CLASSES: 96
+    NAME: StandardROIHeads2
+    # BATCH_SIZE_PER_IMAGE: 128
+  RPN:
+    POST_NMS_TOPK_TEST: 128
+DATASETS:
+  TRAIN: ('vaipe_train_duy',)
+  TEST: ('vaipe_test_duy',)  
+SOLVER:
+  IMS_PER_BATCH: 4
+  STEPS: (10000, 20000)
+  MAX_ITER: 60000
+  CHECKPOINT_PERIOD: 5000
+OUTPUT_DIR: "checkpoints/test/"

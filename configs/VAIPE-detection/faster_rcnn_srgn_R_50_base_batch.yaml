@@ -1,0 +1,35 @@
+_BASE_: "../Base-RCNN-FPN.yaml"
+MODEL:
+  META_ARCHITECTURE: "RCNN_SGRN_COPY"
+  # WEIGHTS: "/home/huyen/projects/huyen/Test1/FSCE/FSCE/checkpoints/vaipe/faster_rcnn/R_50_FPN_all/test2705/model_0029999.pth"
+  # WEIGHTS: "/home/huyen/projects/huyen/Test1/FSCE/test_SRGN/FSCE/checkpoints/vaipe/SGRN/R_50_FPN_all/test0306/model_0059999.pth"
+  # WEIGHTS: "/home/huyen/projects/huyen/Test1/FSCE/test_SRGN/FSCE/checkpoints/vaipe/SGRN/R_50_FPN_all/test0606/model_0089999.pth"
+  # WEIGHTS: "/home/huyen/projects/huyen/Test1/FSCE/test_SRGN/FSCE/checkpoints/vaipe/SGRN/R_50_FPN_all/test0606_on_frcnn_model/model_0069999.pth"
+  WEIGHTS: "/home/huyen/projects/FSCE/checkpoints/vaipe/SGRN/R_50_FPN_all/test0306/model_0049999.pth"
+  # WEIGHTS: "checkpoints/R-50.pkl"
+  MASK_ON: False
+  RESNETS:
+    DEPTH: 50
+  ROI_HEADS:
+    NAME: "StandardROIHeads_Copy2"
+    NUM_CLASSES: 262
+    FREEZE_FEAT: True
+    # UNFREEZE_FC1: True
+    # UNFREEZE_FC2: True
+    BATCH_SIZE_PER_IMAGE: 128
+  RPN:
+    POST_NMS_TOPK_TEST: 128
+  BACKBONE:
+    FREEZE: True
+    FREEZE_P5: True
+  PROPOSAL_GENERATOR:
+    FREEZE: True
+DATASETS:
+  TRAIN: ('vaipe_train',) #('coco_2014_train',) #
+  TEST: ('vaipe_test',) #('coco_2014_val',)  #
+SOLVER:
+  IMS_PER_BATCH: 4   # ADJUSTED
+  STEPS: (10000, 20000)
+  MAX_ITER: 90000
+  CHECKPOINT_PERIOD: 5000
+OUTPUT_DIR: "checkpoints/vaipe/SGRN/R_50_FPN_all/test0606_on_frcnn_60k"

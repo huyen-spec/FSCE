@@ -1,0 +1,27 @@
+VERSION: 2
+MODEL:
+  META_ARCHITECTURE: "GeneralizedDecoupledRCNN"
+  WEIGHTS: "checkpoints/vaipe/faster_drcnn_R_50_base/model_final.pth"
+  MASK_ON: False
+  RESNETS:
+    DEPTH: 50
+  PROPOSAL_GENERATOR:
+    ENABLE_DECOUPLE: True
+    BACKWARD_SCALE: 0.0
+  ROI_HEADS:
+    NAME: "Res5ROIHeads"
+    NUM_CLASSES: 231
+    ENABLE_DECOUPLE: True
+    BACKWARD_SCALE: 0.75
+  RPN:
+    PRE_NMS_TOPK_TEST: 6000
+    POST_NMS_TOPK_TEST: 1000
+DATASETS:
+  TRAIN: ('vaipe_train_base',)
+  TEST: ('vaipe_test_base',)
+SOLVER:
+  IMS_PER_BATCH: 8
+  STEPS: (10000, 20000)
+  MAX_ITER: 1
+  CHECKPOINT_PERIOD: 5000
+OUTPUT_DIR: "checkpoints/vaipe/faster_drcnn_R_50_base"
